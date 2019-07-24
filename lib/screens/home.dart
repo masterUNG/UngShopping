@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ung_shopping/screens/sign_in.dart';
+import 'package:ung_shopping/screens/sign_up.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -36,7 +38,13 @@ class _HomeState extends State<Home> {
           'Sign In',
           style: TextStyle(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () {
+          print('You Click SignIn');
+
+          var signInRoute =
+              MaterialPageRoute(builder: (BuildContext context) => SignIn());
+          Navigator.of(context).push(signInRoute);
+        },
       ),
     );
   }
@@ -51,7 +59,10 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: Text('Sign Up'),
-        onPressed: () {},
+        onPressed: () {
+          var signUpRoute = MaterialPageRoute(builder: (BuildContext context) => SignUp());
+          Navigator.of(context).push(signUpRoute);
+        },
       ),
     );
   }
