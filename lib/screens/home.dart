@@ -7,16 +7,33 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   // Explicit
+  double myWidth = 200.0;
 
   // Method
   Widget showAppName() {
-    return Text('Ung Shopping');
+    return Text(
+      'Ung Shopping',
+      style: TextStyle(
+        fontSize: 24.0,
+        color: Colors.pink[700],
+        fontWeight: FontWeight.bold,
+      ),
+    );
   }
 
   Widget signInButton() {
-    return RaisedButton(
-      child: Text('Sign In'),
-      onPressed: () {},
+    return Container(width: myWidth,
+      child: FlatButton(
+        color: Colors.green[700],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Text(
+          'Sign In',
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: () {},
+      ),
     );
   }
 
