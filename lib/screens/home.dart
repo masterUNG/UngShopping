@@ -11,18 +11,22 @@ class _HomeState extends State<Home> {
 
   // Method
   Widget showAppName() {
-    return Text(
-      'Ung Shopping',
-      style: TextStyle(
-        fontSize: 24.0,
-        color: Colors.pink[700],
-        fontWeight: FontWeight.bold,
+    return Container(
+      margin: EdgeInsets.only(bottom: 8.0),
+      child: Text(
+        'Ung Shopping',
+        style: TextStyle(
+          fontSize: 48.0,
+          color: Colors.pink[700],
+          fontWeight: FontWeight.bold,
+          fontFamily: 'ButterflyKids',
+        ),
       ),
     );
   }
 
   Widget signInButton() {
-    return Container(width: myWidth,
+    return Container(
       child: FlatButton(
         color: Colors.green[700],
         shape: RoundedRectangleBorder(
@@ -38,9 +42,42 @@ class _HomeState extends State<Home> {
   }
 
   Widget signUpButton() {
-    return RaisedButton(
-      child: Text('Sign Up'),
-      onPressed: () {},
+    return Container(
+      child: OutlineButton(
+        borderSide: BorderSide(
+          color: Colors.green[700],
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Text('Sign Up'),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  Widget showButton() {
+    return Container(
+      width: 250.0,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: signInButton(),
+          ),
+          Expanded(
+            child: signUpButton(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget showLogo() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 30.0),
+      width: 120.0,
+      height: 120.0,
+      child: Image.asset('images/logo.png'),
     );
   }
 
@@ -48,12 +85,18 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            colors: [Colors.white, Colors.yellow[600]],
+            radius: 1.0,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            showLogo(),
             showAppName(),
-            signInButton(),
-            signUpButton(),
+            showButton(),
           ],
         ),
         alignment: Alignment.center,
