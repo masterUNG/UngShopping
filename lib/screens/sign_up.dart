@@ -8,6 +8,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   // Explicit
   double myPadding = 20.0;
+  String nameString, emailString, passwordString;
+  final formKey = GlobalKey<FormState>();
 
   // Method
   Widget showHead() {
@@ -30,11 +32,17 @@ class _SignUpState extends State<SignUp> {
       padding: EdgeInsets.only(left: myPadding, right: myPadding),
       child: TextFormField(
         decoration: InputDecoration(
-            labelText: 'Name :',
-            icon: Icon(
-              Icons.perm_identity,
-              size: 36.0,
-            )),
+          labelText: 'Name :',
+          icon: Icon(
+            Icons.perm_identity,
+            size: 36.0,
+          ),
+        ),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Please Fill Name in Blank';
+          }
+        },
       ),
     );
   }
@@ -50,7 +58,11 @@ class _SignUpState extends State<SignUp> {
             Icons.email,
             size: 36.0,
           ),
-        ),
+        ),validator: (String value){
+          if (!((value.contains('@')) && (value.contains('.')))) {
+            return 'Please Type Email Format';
+          }
+        },
       ),
     );
   }
@@ -65,14 +77,24 @@ class _SignUpState extends State<SignUp> {
             Icons.lock,
             size: 36.0,
           ),
-        ),
+        ),validator: (String value){
+          if (value.length < 6) {
+            return 'More 6 Charactor';
+          }
+        },
       ),
     );
   }
 
   Widget uploadButton() {
     return IconButton(
-      icon: Icon(Icons.cloud_upload),onPressed: (){},
+      icon: Icon(Icons.cloud_upload),
+      onPressed: () {
+        print('You Click Upload');
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+        }
+      },
     );
   }
 
@@ -84,14 +106,16 @@ class _SignUpState extends State<SignUp> {
         title: Text('Sign Up'),
         actions: <Widget>[uploadButton()],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          showHead(),
-          nameText(),
-          emailText(),
-          passwordText(),
-        ],
+      body: Form(key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            showHead(),
+            nameText(),
+            emailText(),
+            passwordText(),
+          ],
+        ),
       ),
     );
   }
