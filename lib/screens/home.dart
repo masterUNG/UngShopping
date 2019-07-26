@@ -16,25 +16,22 @@ class _HomeState extends State<Home> {
   // Method
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     checkStatus();
   }
 
-  Future<void> checkStatus()async{
-
+  Future<void> checkStatus() async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     FirebaseUser firebaseUser = await firebaseAuth.currentUser();
 
     if (firebaseUser != null) {
-      
-        var serviceRoute = MaterialPageRoute(builder: (BuildContext context) => MyService());
-        Navigator.of(context).pushAndRemoveUntil(serviceRoute, (Route<dynamic> route) => false);
-
+      var serviceRoute =
+          MaterialPageRoute(builder: (BuildContext context) => MyService());
+      Navigator.of(context)
+          .pushAndRemoveUntil(serviceRoute, (Route<dynamic> route) => false);
     }
-
   }
-
 
   Widget showAppName() {
     return Container(
@@ -84,7 +81,8 @@ class _HomeState extends State<Home> {
         ),
         child: Text('Sign Up'),
         onPressed: () {
-          var signUpRoute = MaterialPageRoute(builder: (BuildContext context) => SignUp());
+          var signUpRoute =
+              MaterialPageRoute(builder: (BuildContext context) => SignUp());
           Navigator.of(context).push(signUpRoute);
         },
       ),
