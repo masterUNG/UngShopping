@@ -10,20 +10,27 @@ class _SignInState extends State<SignIn> {
 
   // Method
   Widget emailText() {
-    return TextFormField(
-      decoration: InputDecoration(hintStyle: TextStyle(color: Colors.red),
-        hintText: 'ABC',
-        labelText: 'Email :',
-        helperText: 'you@email.com',
+    return Container(
+      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintStyle: TextStyle(color: Colors.red),
+          hintText: 'ABC',
+          labelText: 'Email :',
+          helperText: 'you@email.com',
+        ),
       ),
     );
   }
 
   Widget passwordText() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: 'Password :',
-        helperText: 'More 6 Charactor',
+    return Container(
+      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: 'Password :',
+          helperText: 'More 6 Charactor',
+        ),
       ),
     );
   }
