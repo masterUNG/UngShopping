@@ -12,6 +12,7 @@ class _SignInState extends State<SignIn> {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final formKey = GlobalKey<FormState>();
   String emailString, passwordString;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Method
   Widget signInButton() {
@@ -36,9 +37,21 @@ class _SignInState extends State<SignIn> {
         .signInWithEmailAndPassword(
             email: emailString, password: passwordString)
         .then((response) {
-          var homeRoute = MaterialPageRoute(builder: (BuildContext context) => MyService());
-          Navigator.of(context).pushAndRemoveUntil(homeRoute, (Route<dynamic> route) => false);
-        });
+      var homeRoute =
+          MaterialPageRoute(builder: (BuildContext context) => MyService());
+      Navigator.of(context)
+          .pushAndRemoveUntil(homeRoute, (Route<dynamic> route) => false);
+    }).catchError((response) {
+      String errorString = response.message;
+      mySnackBar(errorString);
+    });
+  }
+
+  void mySnackBar(String messageString) {
+    SnackBar snackBar = SnackBar(
+      content: Text(messageString),
+    );
+    scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
   Widget emailText() {
@@ -78,6 +91,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text('Sign In'),
       ),
