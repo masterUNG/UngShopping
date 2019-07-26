@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ung_shopping/screens/home.dart';
+import 'package:ung_shopping/screens/page1.dart';
+import 'package:ung_shopping/screens/page2.dart';
+import 'package:ung_shopping/screens/page3.dart';
 
 class MyService extends StatefulWidget {
   @override
@@ -11,6 +14,7 @@ class _MyServiceState extends State<MyService> {
   // Explicit
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String displayNameStrin = '';
+  Widget myWidget = Page1();
 
   // Method
   @override
@@ -32,6 +36,9 @@ class _MyServiceState extends State<MyService> {
       child: ListView(
         children: <Widget>[
           headDrawer(),
+          showPage1(),
+          showPage2(),
+          showPage3(),
           mySignOut(),
         ],
       ),
@@ -68,10 +75,51 @@ class _MyServiceState extends State<MyService> {
     );
   }
 
+  Widget showPage1() {
+    return ListTile(
+      leading: Icon(Icons.home),
+      title: Text('Page 1'),
+      onTap: () {
+        setState(() {
+          myWidget = Page1();
+          Navigator.of(context).pop();
+        });
+      },
+    );
+  }
+
+  Widget showPage2() {
+    return ListTile(
+      leading: Icon(Icons.android),
+      title: Text('Page 2'),
+      onTap: () {
+        setState(() {
+          myWidget = Page2();
+          Navigator.of(context).pop();
+        });
+      },
+    );
+  }
+
+  Widget showPage3() {
+    return ListTile(
+      leading: Icon(Icons.account_box),
+      title: Text('Page 3'),
+      onTap: () {
+        setState(() {
+          myWidget = Page3();
+        });
+        Navigator.of(context).pop();
+      },
+    );
+  }
+
   Future<void> processSignOut() async {
     await firebaseAuth.signOut().then((response) {
-      var homeRoute = MaterialPageRoute(builder: (BuildContext context) => Home());
-      Navigator.of(context).pushAndRemoveUntil(homeRoute, (Route<dynamic> route) => false);
+      var homeRoute =
+          MaterialPageRoute(builder: (BuildContext context) => Home());
+      Navigator.of(context)
+          .pushAndRemoveUntil(homeRoute, (Route<dynamic> route) => false);
     });
   }
 
@@ -121,7 +169,7 @@ class _MyServiceState extends State<MyService> {
         backgroundColor: Colors.green[700],
         title: showTitle(),
       ),
-      body: Text('body'),
+      body: myWidget,
       drawer: myDrawerMenu(),
     );
   }
